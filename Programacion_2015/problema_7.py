@@ -1,30 +1,29 @@
-def obtain_permutations(data, sum_data):
-    data_copy = data.copy()
-    data_permutations = data.copy()
-    sum_value = 0
-    i = 0
-    count = 0
-    while sum_value < sum_data:
-        value = data_permutations[0]
-        sum_value += value
-        data_copy.remove(value)
-        print(value, sum_value, sum_data, count, data_copy)
-        count = obtain_permutations(data_permutations, sum_data-sum_value)
-        if sum_value == sum_data:
-            count += 1
-    return count
+def subset_sum(numbers, target, numbers_partial=[]):
+    s = sum(numbers_partial)
+
+    # check if the partial sum is equals to sum_data
+    if s == sum_data:
+        print("sum(%s)=%s" % (numbers_partial,
+                              sum_data))
+    if s >= sum_data:
+        return   # if we reach the number why bother to continue
+
+    for i in range(len(numbers)):
+        n = numbers[i]
+        remaining = numbers[i+1:]
+        subset_sum(remaining,
+                   sum_data,
+                   numbers_partial + [n])
 
 
-data = [
-    1,
-    2,
-    5,
-    4,
-    9,
-    3,
-    6,
-    7
-]
+data = [1,
+        2,
+        5,
+        4,
+        9,
+        3,
+        6,
+        7]
 sum_data = 7
-count = obtain_permutations(data, sum_data)
+count = subset_sum(data, sum_data)
 print(count)
